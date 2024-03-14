@@ -7,15 +7,15 @@ import (
 )
 
 func main() {
-	engine := goact.CreateGoatEngine("./dist", "./views")
+	engine := goact.CreateGoatEngine("./dist", "./views", false)
 
 	app := fiber.New(fiber.Config{
 		Views: engine,
 	})
 
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("./views/main/index.tsx", fiber.Map{
-			"Title": "Hello, World!",
+		return c.Render("main/index.tsx", fiber.Map{
+			"title": "Hello, World!",
 		})
 	})
 

@@ -1,6 +1,4 @@
-import React from "react";
-
-export const Layout: React.FC = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <div>
       <h1>My App</h1>
@@ -8,3 +6,5 @@ export const Layout: React.FC = ({ children }) => {
     </div>
   );
 };
+
+export default Layout;

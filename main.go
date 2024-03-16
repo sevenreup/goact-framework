@@ -7,7 +7,14 @@ import (
 )
 
 func main() {
-	engine := goact.CreateGoatEngine("./dist", "./views", false)
+	opts := goact.GoactEngineOpts{
+		OutputDir:        "./dist",
+		WorkingDir:       "./views",
+		IsDebug:          true,
+		StructPath:       "./dto",
+		TsTypeOutputPath: "./views/types",
+	}
+	engine := goact.CreateGoactEngine(&opts)
 
 	app := fiber.New(fiber.Config{
 		Views: engine,

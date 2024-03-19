@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/sevenreup/goact"
+	"html/template"
 	"log"
 )
 
@@ -13,6 +14,11 @@ func main() {
 		IsDebug:          true,
 		StructPath:       "./dto",
 		TsTypeOutputPath: "./views/types",
+		DefaultRenderData: goact.RenderData{
+			Title: "My App",
+			Head:  template.HTML(` <link rel="stylesheet" href="/main.css">`),
+		},
+		InjectCss: false,
 	}
 	engine := goact.CreateGoactEngine(&opts)
 
@@ -20,9 +26,14 @@ func main() {
 		Views: engine,
 	})
 
+	app.Static("/", "./public")
+
 	app.Get("/", func(c *fiber.Ctx) error {
-		return c.Render("main/index.tsx", fiber.Map{
-			"title": "Hello, World!",
+		return c.Render("main/index.tsx", goact.RenderData{
+			Title: "Hello, World!",
+			Props: map[string]string{
+				"title": "Hello, World!",
+			},
 		})
 	})
 
